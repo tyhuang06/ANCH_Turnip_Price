@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/uikit.min.css">
+    <script src="js/uikit.min.js"></script>
+    <script src="js/uikit-icons.min.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    
+    <title>ANCH Turnip Price</title>
+</head>
+<body>
+    <nav class="uk-navbar-container" uk-navbar>
+        <div class="uk-navbar-center">
+    
+            <ul class="uk-navbar-nav">
+                <li class="uk-active"><a href="#">Animal Crossing</a></li>
+                <li>
+            </ul>
+    
+        </div>
+    </nav>
+
+    <div class="uk-container">
+        <form name="form" id="form">
+            <div class="uk-align-right">
+                <p>Buy Price: <input type="number" maxlength="3" class="uk-input uk-width-1-4" id="buy"></p>
+            </div>
+            <div class="uk-container" id="priceTable">
+                <table class="uk-table" class="uk-child-width-expand" uk-grid>
+                    <thead></thead>
+                    <tbody>
+                        <tr>
+                            <th scope="col" class="day">#</th>
+                            <th scope="col" class="day">MON</th>
+                            <th scope="col" class="day">TUE</th>
+                            <th scope="col" class="day">WED</th>
+                            <th scope="col" class="day">THU</th>
+                            <th scope="col" class="day">FRI</th>
+                            <th scope="col" class="day">SAT</th>
+                        </tr>
+                        <tr>
+                            <th scope="row">A.M.</th>
+                            <td><input type="tel" maxlength="3" class="uk-input" id="mon1"></td>
+                            <td><input type="tel" maxlength="3" class="uk-input" id="tue1"></td>
+                            <td><input type="tel" maxlength="3" class="uk-input" id="wed1"></td>
+                            <td><input type="tel" maxlength="3" class="uk-input" id="thu1"></td>
+                            <td><input type="tel" maxlength="3" class="uk-input" id="fri1"></td>
+                            <td><input type="tel" maxlength="3" class="uk-input" id="sat1"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">P.M.</th>
+                            <td><input type="tel" maxlength="3" class="uk-input" id="mon2"></td>
+                            <td><input type="tel" maxlength="3" class="uk-input" id="tue2"></td>
+                            <td><input type="tel" maxlength="3" class="uk-input" id="wed2"></td>
+                            <td><input type="tel" maxlength="3" class="uk-input" id="thu2"></td>
+                            <td><input type="tel" maxlength="3" class="uk-input" id="fri2"></td>
+                            <td><input type="tel" maxlength="3" class="uk-input" id="sat2"></td>
+                        </tr>
+                    </tbody>
+                  </table>
+            </div>
+            <div class="uk-align-right">
+                <input type="button" name="submit" class="uk-button" value="Predict" onclick="predict()">
+            </div>
+        </form>
+        <div class="uk-container">
+            <div class="result" id="type0">
+                <h3>波型</h3>
+            </div>
+            <div class="result" id="type1">
+                <h3>三期型</h3>
+            </div>
+            <div class="result" id="type2">
+                <h3>遞減型</h3>
+            </div>
+            <div class="result" id="type3">
+                <h3>四期型</h3>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/turnip.js"></script>
+</body>
+</html>

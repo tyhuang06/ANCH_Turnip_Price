@@ -1,0 +1,19 @@
+input {
+    width: auto;
+}
+
+.uk-container {
+    margin-top: 20px;
+}
+
+.uk-table th{
+    text-align: center;
+}
+
+.uk-input {
+    text-align: right;
+}
+
+.result {
+    display: none;
+}
