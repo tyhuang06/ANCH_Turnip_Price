@@ -1,6 +1,22 @@
 var price = {};
 var buyPrice;
+var monPriceAM;
 var base;
+var increaseFlag = 0;
+
+function increaseBefore() {
+    var increase = false;
+    for (var i = 2; i <= 8; i++) {
+        if (price[i] > monPriceAM) {
+            console.log("increased");
+            increase = true;
+            increaseFlag = i;
+            return increase;
+        }
+    }
+    
+    return increase;
+}
 
 function guess() {
     var type0 = document.getElementById("type0"); // 波型
@@ -9,24 +25,62 @@ function guess() {
     var type3 = document.getElementById("type3"); // 四期型
 
     if (base >= 0.9) { // Random or Small Spike
-        if (price[2].value == undefined && price[3].value == undefined) {
-            // 波型(機率較高) or 四期型
-            type0.style.display = "block";
-            type3.style.display = "block";
-        } else if (price[2] / buyPrice < 0.8 || price[3] / buyPrice > 1.4) {
-            // 波型
-            type0.style.display = "block";
-        } else if (price[2] / buyPrice >= 0.8 && price[3] / buyPrice <= 1.4) {
-            // 四期型
-            type3.style.display = "block";
+        type0.style.display = "block";
+        type3.style.display = "block";
+
+        if (price[2] != "" && price[3] != "") {
+            console.log("got here!");
+            
+            if (price[2] / buyPrice < 0.8 || price[3] / buyPrice < 1.4) {
+                // 波型
+                type3.style.display = "none";
+            } else if (price[2] / buyPrice >= 0.8 && price[3] / buyPrice >= 1.4) {
+                // 四期型
+                type0.style.display = "none";
+            }
         }
     } else if (base < 0.9 && base >= 0.85) { // Small Spike or Large Spike or Decreasing
-        // check if increases before thu p.m.
-        
+        type1.style.display = "block";
+        type2.style.display = "block";
+        type3.style.display = "block";
+
+        // check if price increases before thu p.m.
+        var increase = increaseBefore();
+
+        if (increase) {
+            // 三期or四期
+            if (price[increaseFlag+1] / buyPrice >= 1.4) {
+                // 三期
+                type2.style.display = "none";
+                type3.style.display = "none";
+            } else {
+                // 四期
+                type1.style.display = "none";
+                type2.style.display = "none";
+            }
+        } else if (!increase && price[8] != " ") {
+            // 遞減
+            type1.style.display = "none";
+            type3.style.display = "none";
+        }
     } else if (base < 0.85 && base >= 0.8) { // Small Spike
         // 四期型
         type3.style.display = "block";
     } else if (base < 0.8 && base >= 0.6) { // Small Spike or Random
+        type0.style.display = "block";
+        type3.style.display = "block";
+
+        var increase = increaseBefore();
+
+        if ((increaseFlag - 1) >= 3) {
+            // 四期
+            type0.style.display = "none";
+        }
+
+        if (price[2] != "" && ((monPriceAM / buyPrice) - (price[2] / buyPrice)) > 0.05) {
+            // 波型
+            type3.style.display = "none";
+        }
 
     } else if (base < 0.6) { // Small Spike
         // 四期型
@@ -37,7 +91,6 @@ function guess() {
 function predict() {
     /** Read the prices in the form */
     const formElement = document.getElementById("form");
-    var monPriceAM;
     var tempPrice = {};
 
     buyPrice = formElement[0].value;
